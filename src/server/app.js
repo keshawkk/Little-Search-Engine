@@ -9,8 +9,11 @@ const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('path');
-
 const fileUpload = require('express-fileupload');
+
+
+// Initialize DB
+require('./initDB')();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +33,6 @@ app.use(
   })
 );
 
-// The Api App
 // Call the main api route here
 app.use('/api', require('./controllers/index.js'));
 
