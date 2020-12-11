@@ -36,7 +36,10 @@ module.exports = {
     port: DEV_PORT,
     historyApiFallback: true,
     open: true,
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': 'http://localhost:5000',
+    },
   },
   resolve: {
     extensions: ['*', '.js', '.jsx']

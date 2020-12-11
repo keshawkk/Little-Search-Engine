@@ -51,7 +51,7 @@ module.exports = {
    */
   createUser: async (req, res) => {
     try {
-      const  email  = 'dummy@gmail.com';
+      const  email  = 'dummyuser@gmail.com';
       const  password  = '123456789';
 
       const user = await User.findOne({ email }, 'email');
@@ -63,8 +63,8 @@ module.exports = {
       if (!hash) throw Error('Something went wrong hashing the password');
 
       const newUser = new User();
-      newUser.name = 'user1';
-      newUser.email = req.body.email;
+      newUser.name = 'User1';
+      newUser.email = 'dummyuser@gmail.com';
       newUser.password = hash;
 
       const savedUser = await newUser.save();

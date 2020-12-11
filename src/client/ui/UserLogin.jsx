@@ -19,16 +19,12 @@ const AdminLogin = () => {
     setIsSubmitting(true);
 
     console.log('login clicked')
-    let data = JSON.stringify({
+    let data = {
       email: e.target.email.value,
       password: e.target.password.value
-    })
+    }
 console.log(data);
-    axios.post('/api/user/login', data, {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
+    axios.post('/api/user/login', data)
     .then(() => {
       dispatch(getSession());
       history.replace("/");

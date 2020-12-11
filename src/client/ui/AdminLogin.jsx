@@ -15,17 +15,14 @@ const AdminLogin = () => {
     e.preventDefault();
     
     setIsSubmitting(true);
-    let data = JSON.stringify({
+    let data = {
       email: e.target.email.value,
       password: e.target.password.value
-    })
+    }
+
     console.log(data);
     
-    axios.post('/api/user/login', data, {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-      })
+    axios.post('/api/admin/login', data)
       .then(() => {
         dispatch(getSession());
         history.replace("/");
@@ -46,9 +43,9 @@ const AdminLogin = () => {
           <Form.Group>
             <Form.Label>User Name</Form.Label>
             <Form.Control
-              type="name"
-              name="UserName"
-              placeholder="Your User Name"
+              type="email"
+              name="email"
+              placeholder="Your Email"
             />
           </Form.Group>
           <Form.Group>
@@ -62,13 +59,7 @@ const AdminLogin = () => {
           <Button variant="primary" type="submit">
             LogIn
           </Button>
-          {/* <div>
-            Don&apos;t have an account?
-            {' '}
-            <LinkContainer to="">
-              Sign Up
-            </LinkContainer>
-          </div> */}
+          
         </fieldset>
       </Form>
       {error ? <div className="text-danger">{error}</div> : null}

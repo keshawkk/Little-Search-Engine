@@ -4,7 +4,7 @@ const jwt = require('./jwt.js');
 
 module.exports = {
   /**
-   * @route   POST //Todo: add path
+   * @route   POST api/admin/login
    * @desc    Login user
    * @access  Public
    */
@@ -54,8 +54,8 @@ module.exports = {
    */
   createAdmin: async (req, res) => {
     try {
-      const { email } = "Admin@gmail.com";
-      const { password } = "123456789";
+      const  email  = "dummyadmin@gmail.com";
+      const  password = "123456789";
 
       const admin = await Admin.findOne({ email }, 'email');
       if (admin) throw Error('User already exists');
@@ -66,8 +66,8 @@ module.exports = {
       if (!hash) throw Error('Something went wrong hashing the password');
 
       const newAdmin = new Admin();
-      newAdmin.name = "ADMIN";
-      newAdmin.email = "Admin@gmail.com";
+      newAdmin.name = "Admin1";
+      newAdmin.email = "dummyadmin@gmail.com";
       newAdmin.password = hash;
 
       const savedAdmin = await newAdmin.save();

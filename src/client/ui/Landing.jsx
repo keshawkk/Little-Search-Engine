@@ -11,13 +11,14 @@ const Landing = () => (
     {console.log('from Landing')}
 
     <section>
-      <Container className="landing-title">
+      <Container className="mb-5">
         Parintek !!!
       </Container>
+      <div>{' '}</div>
     </section>
     <section>
       <Row>
-        <Col className="sm-6">
+        <Col className="sm-6 m-4">
           {' '}
           <LinkContainer to="/admin/login">
             <Nav.Link>
