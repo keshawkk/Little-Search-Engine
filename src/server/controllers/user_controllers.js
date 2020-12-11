@@ -4,18 +4,19 @@ const jwt = require('./jwt.js');
 
 module.exports = {
   /**
-   * @route   POST //Todo: add path
+   * @route   POST api/user/login
    * @desc    Login user
    * @access  Public
    */
   loginUser: async (req, res) => {
     try {
-      const { userName } = req.body;
+      const { email } = req.body;
       const { password } = req.body;
 
-      const user = await User.findOne({ userName });
+      const user = await User.findOne({ email });
       if (!user) throw Error('user Does not exist!!');
 
+      if(user.timesLoggedIn > 4) throw Error('log-In limit exceeded')
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) throw Error('Invalid credentials');
 
@@ -30,7 +31,7 @@ module.exports = {
       if (!token) throw Error('Couldnt sign the token');
 
       req.session.token = token;
-
+      user.timesLoggedIn += 1;
       res.status(200).json({
         status: 'OK',
         token,
@@ -50,10 +51,10 @@ module.exports = {
    */
   createUser: async (req, res) => {
     try {
-      const { userName } = req.body;
-      const { password } = req.body;
+      const  email  = 'dummy@gmail.com';
+      const  password  = '123456789';
 
-      const user = await User.findOne({ userName }, 'userName');
+      const user = await User.findOne({ email }, 'email');
       if (user) throw Error('User already exists');
 
       const salt = await bcrypt.genSalt(15);
@@ -62,8 +63,8 @@ module.exports = {
       if (!hash) throw Error('Something went wrong hashing the password');
 
       const newUser = new User();
-      newUser.name = req.body.name;
-      newUser.userName = req.body.userName;
+      newUser.name = 'user1';
+      newUser.email = req.body.email;
       newUser.password = hash;
 
       const savedUser = await newUser.save();

@@ -6,7 +6,7 @@ const adminSchema = new mongoose.Schema({
     trim: true
   },
 
-  userName: {
+  email: {
     type: String,
     trim: true
   },
@@ -14,6 +14,10 @@ const adminSchema = new mongoose.Schema({
   password: {
     type: String,
     trim: true
+  },
+
+  isLoggedIn:{
+    type: Boolean
   }
 });
 

@@ -12,9 +12,12 @@ module.exports = {
     try {
       const { userName } = req.body;
       const { password } = req.body;
+    
 
       const admin = await Admin.findOne({ userName });
       if (!admin) throw Error('user Does not exist!!');
+
+      if (admin.isLoggedIn) throw Error('Already Logged In')
 
       const isMatch = await bcrypt.compare(password, admin.password);
       if (!isMatch) throw Error('Invalid credentials');
@@ -30,6 +33,7 @@ module.exports = {
       if (!token) throw Error('Couldnt sign the token');
 
       req.session.token = token;
+      admin.isLoggedIn = true;
 
       res.status(200).json({
         status: 'OK',
@@ -50,10 +54,10 @@ module.exports = {
    */
   createAdmin: async (req, res) => {
     try {
-      const { userName } = req.body;
-      const { password } = req.body;
+      const { email } = "Admin@gmail.com";
+      const { password } = "123456789";
 
-      const admin = await Admin.findOne({ userName }, 'userName');
+      const admin = await Admin.findOne({ email }, 'email');
       if (admin) throw Error('User already exists');
 
       const salt = await bcrypt.genSalt(15);
@@ -62,8 +66,8 @@ module.exports = {
       if (!hash) throw Error('Something went wrong hashing the password');
 
       const newAdmin = new Admin();
-      newAdmin.name = req.body.name;
-      newAdmin.userName = req.body.userName;
+      newAdmin.name = "ADMIN";
+      newAdmin.email = "Admin@gmail.com";
       newAdmin.password = hash;
 
       const savedAdmin = await newAdmin.save();
@@ -72,7 +76,7 @@ module.exports = {
       res.status(200).json({
         data: savedAdmin,
         status: 'OK',
-        message: 'User Saved',
+        message: 'Admin Saved',
       });
     } catch (error) {
       console.log(error.message);

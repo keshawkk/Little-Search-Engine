@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     trim: true
   },
 
-  userName: {
+  email: {
     type: String,
     trim: true
   },
@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     trim: true
+  },
+
+  timesLoggedIn:{
+    type: Number
   }
 });
 
