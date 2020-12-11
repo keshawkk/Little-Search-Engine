@@ -10,14 +10,14 @@ module.exports = {
    */
   loginAdmin: async (req, res) => {
     try {
-      const { userName } = req.body;
-      const { password } = req.body;
+      const  email  = req.body.email;
+      const  password  = req.body.password;
     
 
-      const admin = await Admin.findOne({ userName });
+      const admin = await Admin.findOne({ email });
       if (!admin) throw Error('user Does not exist!!');
 
-      if (admin.isLoggedIn) throw Error('Already Logged In')
+      //if (admin.isLoggedIn) throw Error('Already Logged In')
 
       const isMatch = await bcrypt.compare(password, admin.password);
       if (!isMatch) throw Error('Invalid credentials');
@@ -33,7 +33,7 @@ module.exports = {
       if (!token) throw Error('Couldnt sign the token');
 
       req.session.token = token;
-      admin.isLoggedIn = true;
+      //admin.isLoggedIn = true;
 
       res.status(200).json({
         status: 'OK',

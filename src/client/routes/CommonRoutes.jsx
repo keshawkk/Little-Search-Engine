@@ -5,12 +5,13 @@ import UserLogin from '../ui/UserLogin';
 import AdminLogin from '../ui/AdminLogin';
 import Landing from '../ui/Landing';
 
-const CommonRoutes = () => (
+const CommonRoutes = ({error}) => (
   <Switch>
     <Route path="/admin/login" exact><AdminLogin /></Route>
     <Route path="/user/login" exact><UserLogin /></Route>
 
     <Route path="/" exact><Landing /></Route>
+    <Route> {error} </Route>
   </Switch>
 );
 

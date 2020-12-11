@@ -10,19 +10,23 @@ module.exports = {
    */
   loginUser: async (req, res) => {
     try {
-      const { email } = req.body;
-      const { password } = req.body;
-
+      const  email  = req.body.email;
+      const  password  = req.body.password;
+      
+      console.log(email);
+      console.log(password);
+      
       const user = await User.findOne({ email });
       if (!user) throw Error('user Does not exist!!');
 
-      if(user.timesLoggedIn > 4) throw Error('log-In limit exceeded')
+      //if(user.timesLoggedIn > 4) throw Error('log-In limit exceeded')
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) throw Error('Invalid credentials');
 
       // Creating a Token and making a session
       const token = jwt.generateToken(
         {
+          identifier: user.identifier,
           name: user.name,
         },
         '48h'
@@ -31,7 +35,7 @@ module.exports = {
       if (!token) throw Error('Couldnt sign the token');
 
       req.session.token = token;
-      user.timesLoggedIn += 1;
+      //user.timesLoggedIn += 1;
       res.status(200).json({
         status: 'OK',
         token,
@@ -51,8 +55,10 @@ module.exports = {
    */
   createUser: async (req, res) => {
     try {
-      const  email  = 'dummyuser@gmail.com';
-      const  password  = '123456789';
+      // const  email  = 'dummyuser@gmail.com';
+      // const  password  = '123456789';
+      const  email  = req.body.email;
+      const  password  = req.body.password;
 
       const user = await User.findOne({ email }, 'email');
       if (user) throw Error('User already exists');
@@ -63,8 +69,8 @@ module.exports = {
       if (!hash) throw Error('Something went wrong hashing the password');
 
       const newUser = new User();
-      newUser.name = 'User1';
-      newUser.email = 'dummyuser@gmail.com';
+      newUser.name = req.body.name;//'User1';
+      newUser.email = req.body.email;//'dummyuser@gmail.com';
       newUser.password = hash;
 
       const savedUser = await newUser.save();

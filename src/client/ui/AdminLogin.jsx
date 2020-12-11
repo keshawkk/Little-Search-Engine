@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import { getSession } from '../redux/actions/SessionActions';
 
 const AdminLogin = () => {
+  console.log("From Admin Login");
+
   const history = useHistory();
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -11,6 +11,7 @@ const getSession = () => async (dispatch) => {
   dispatch({ type: SESSION_REQUEST });
   try {
     const data = await axios.post('/api/session');
+    console.log(data);
     dispatch({ type: SESSION_SUCCESS, payload: data.data.user });
   } catch (error) {
     dispatch({ type: SESSION_FAILED, payload: error.response.data.message });
