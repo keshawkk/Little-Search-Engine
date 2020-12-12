@@ -55,11 +55,9 @@ module.exports = {
    */
   createUser: async (req, res) => {
     try {
-      // const  email  = 'dummyuser@gmail.com';
-      // const  password  = '123456789';
-      const  email  = req.body.email;
-      const  password  = req.body.password;
-
+      const  email  = 'dummyuser@gmail.com';
+      const  password  = '123456789';
+      
       const user = await User.findOne({ email }, 'email');
       if (user) throw Error('User already exists');
 
@@ -69,8 +67,8 @@ module.exports = {
       if (!hash) throw Error('Something went wrong hashing the password');
 
       const newUser = new User();
-      newUser.name = req.body.name;//'User1';
-      newUser.email = req.body.email;//'dummyuser@gmail.com';
+      newUser.name = 'User1';
+      newUser.email = 'dummyuser@gmail.com';
       newUser.password = hash;
 
       const savedUser = await newUser.save();
