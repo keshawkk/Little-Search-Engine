@@ -9,3 +9,11 @@ body {
   .color-nav {
     background-color:#181277B3;
   }
+
+  .box{
+    margin:0 auto; 
+    width:600px;
+    padding:20px;
+    background:#f9f9f9;
+    border:2px solid #333;
+    }
