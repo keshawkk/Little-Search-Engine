@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { getSession } from '../redux/actions/SessionActions';
 import { TextInput } from './FormElements';
 
-const AdminLogin = () => {
+const UserLogin = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -18,7 +18,6 @@ const AdminLogin = () => {
    console.log(e.target.email.value);
     setIsSubmitting(true);
 
-    console.log('login clicked')
     let data = {
       email: e.target.email.value,
       password: e.target.password.value
@@ -27,7 +26,7 @@ console.log(data);
     axios.post('/api/user/login', data)
     .then(() => {
       dispatch(getSession());
-      history.replace("/");
+      history.replace("/user");
     })
     .catch((err) => {
       setError(err.response.data.message);
@@ -37,7 +36,7 @@ console.log(data);
 
   return (
     <Container id="form">
-      <div className="title">Login For Students</div>
+      <div className="title">Login For User</div>
       <Form onSubmit={onSubmit}>
         <fieldset disabled={isSubmitting}>
           <TextInput
@@ -63,4 +62,4 @@ console.log(data);
   );
 };
 
-export default AdminLogin;
+export default UserLogin;
