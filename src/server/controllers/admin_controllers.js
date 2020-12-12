@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const Admin = require('../models/admin_model');
+const A = require('../models/a_model');
 const jwt = require('./jwt.js');
 
 module.exports = {
@@ -17,25 +18,53 @@ module.exports = {
       const admin = await Admin.findOne({ email });
       if (!admin) throw Error('user Does not exist!!');
 
+      // const a = await A.findOne({email});
+      // if(a) {
+      //   console.log("User already logged In  " + a.email); 
+      // }else{
+      //   const newA = new A();
+      //   newA.email = email;
+      //   const savedA = await newA.save();
+      //   if (!savedA) { console.log('A not saved'); }
+
+      // }
+
+      
+      if(admin.isLoggedIn){
+        console.log("token 1 ==> " + admin.isLoggedIn);
+      
+      } 
+      else{
+        console.log("token 1 not ==> " + admin.isLoggedIn);
+      }//throw Error('Already logged In');
       //if (admin.isLoggedIn) throw Error('Already Logged In')
 
       const isMatch = await bcrypt.compare(password, admin.password);
       if (!isMatch) throw Error('Invalid credentials');
 
+
       // Creating a Token and making a session
       const token = jwt.generateToken(
         {
           name: admin.name,
+          email: admin.email
         },
         '48h'
       );
-      console.log(token);
+
+      admin.activeJWT = token;
+
+      console.log("1"+admin);
+     
       if (!token) throw Error('Couldnt sign the token');
 
       req.session.token = token;
-      //admin.isLoggedIn = true;
 
+      admin.isLoggedIn = true;
+      console.log("toekn 2 ==> "+admin.isLoggedIn);
+      console.log("2"+admin);
       res.status(200).json({
+        data: admin,
         status: 'OK',
         token,
       });

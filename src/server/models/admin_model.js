@@ -20,7 +20,11 @@ const adminSchema = new mongoose.Schema({
     required: true
   },
 
-  isLoggedIn:{
+  activeJWT: {
+    type: String
+  },
+
+  isLoggedIn: {
     type: Boolean
   }
 });
