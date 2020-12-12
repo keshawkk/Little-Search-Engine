@@ -24,35 +24,42 @@ module.exports = {
       if (!isMatch) throw Error('Invalid credentials');
 
       var token;
-      if(admin.activeJWT)
-      {
-        //verify the jwt 
-      j.verify(admin.activeJWT,
-        process.env.JWT_SECRET,
-        { algorithm: 'HS256' },(err, decoded) => {
-          if(err){
-            // Creating a Token and making a session
-            token = jwt.generateToken(
-            {
-              name: admin.name,
-              email: admin.email
-            },
-            '48h'
-          );
-        }else
-          throw Error("Already logged in")
-        })  
-      }else{
-        // Creating a Token and making a session
-        token = jwt.generateToken(
-          {
-            name: admin.name,
-            email: admin.email
-          },
-          '48h'
-        );
-      }
+      // if(admin.activeJWT)
+      // {
+      //   //verify the jwt 
+      // j.verify(admin.activeJWT,
+      //   process.env.JWT_SECRET,
+      //   { algorithm: 'HS256' },(err, decoded) => {
+      //     if(err){
+      //       // Creating a Token and making a session
+      //       token = jwt.generateToken(
+      //       {
+      //         name: admin.name,
+      //         email: admin.email
+      //       },
+      //       '48h'
+      //     );
+      //   }else
+      //     throw Error("Already logged in")
+      //   })  
+      // }else{
+      //   // Creating a Token and making a session
+      //   token = jwt.generateToken(
+      //     {
+      //       name: admin.name,
+      //       email: admin.email
+      //     },
+      //     '48h'
+      //   );
+      // }
 
+      token = jwt.generateToken(
+        {
+          name: admin.name,
+          email: admin.email
+        },
+        '48h'
+      );
       admin.activeJWT = token;     
       if (!token) throw Error('Couldnt sign the token');
       req.session.token = token;
