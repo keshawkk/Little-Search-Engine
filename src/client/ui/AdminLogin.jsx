@@ -39,15 +39,20 @@ const AdminLogin = () => {
     <Container id="form">
 
       {console.log('from Admin Login')}
-      <div className="title">Login For Admin</div>
+         
+      <div className="title text-light"><br /><h1><center>Admin Login</center></h1></div>
+      <br /> 
+      <div class="box">
+        
       <Form onSubmit={onSubmit}>
         <fieldset disabled={isSubmitting}>
+          
           <Form.Group>
             <Form.Label>User Name</Form.Label>
             <Form.Control
               type="email"
               name="email"
-              placeholder="Your Email"
+              placeholder="Enter Email"
             />
           </Form.Group>
           <Form.Group>
@@ -55,15 +60,16 @@ const AdminLogin = () => {
             <Form.Control
               type="password"
               name="password"
-              placeholder="Your Password"
+              placeholder="Password"
             />
           </Form.Group>
           <Button variant="primary" type="submit">
-            LogIn
+            Log in
           </Button>
           
         </fieldset>
       </Form>
+      </div>
       {error ? <div className="text-danger">{error}</div> : null}
     </Container>
   );

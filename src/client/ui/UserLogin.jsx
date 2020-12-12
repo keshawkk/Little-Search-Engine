@@ -36,28 +36,31 @@ console.log(data);
 
   return (
     <Container id="form">
-      <div className="title">Login For User</div>
+      <div className="title text-light"><br /><h1><center>User Login</center></h1></div>
+      <br /> 
+      <div class="box">
       <Form onSubmit={onSubmit}>
         <fieldset disabled={isSubmitting}>
           <TextInput
             label="Email"
             type="email"
             name="email"
-            placeholder="Your Registered Email"
+            placeholder="Enter Email"
           />
           <TextInput
             label="Password"
             type="password"
             name="password"
-            placeholder="Your Password"
+            placeholder="Password"
           />
           <Button variant="primary" type="submit">
-            SIGN IN
+            Log in
           </Button>
           
         </fieldset>
       </Form>
       {error ? <div className="text-danger">{error}</div> : null}
+     </div>
     </Container>
   );
 };
