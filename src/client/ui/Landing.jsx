@@ -37,8 +37,8 @@ const Landing = () => (
     <section>
       <Container>
       <Row>
-      <Col xs md lg="2"></Col>
-        <Col xs md lg="4">
+      <Col lg={2}></Col>
+        <Col xs md lg={4}>
         
           <LinkContainer to="/admin/login">
           <center>
@@ -50,7 +50,7 @@ const Landing = () => (
           </LinkContainer>
         </Col>
       
-        <Col xs md lg="4">
+        <Col xs md lg={4}>
         
           <LinkContainer to="/user/login">
           <center>  

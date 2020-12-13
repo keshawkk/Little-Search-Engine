@@ -23,25 +23,27 @@ const logoutClick = (e) => {
 
   return (
     <div class="bodybg">
-    <Container>
+     <Container>
+      <Row>
+      <Col xs md lg={8}></Col>
+      <Col xs md lg={4}>
       <Nav.Link onClick={logoutClick}>
           <Button className="float-right" variant="primary" type="submit">
             Logout 
           </Button>
      </Nav.Link> 
-    </Container>
+     </Col>
+     </Row>
     <br/>
-    <Container>
+    
       <Row>
-        <Col xs md lg="3"></Col>
-        <Col xs md lg="5">
+      <Col lg={3}></Col>
+       <Col lg={5}>
           <h4><center>Type below!</center></h4>
           <br/>
           <InputGroup className="mb-3">
             <FormControl
             placeholder="Type here"
-            aria-label="Type here"
-            aria-describedby="basic-addon2"
             />
             <InputGroup.Append>
               <Button variant="primary">Search</Button>
