@@ -39,7 +39,11 @@ const AdminLogin = () => {
     <Container id="form">
 
       {console.log('from Admin Login')}
-      <div className="title">Login For Admin</div>
+
+      <div className="title text-light"><br /><h1><center>Admin Login</center></h1></div>
+      <br /> 
+      <div className="box">
+      
       <Form onSubmit={onSubmit}>
         <fieldset disabled={isSubmitting}>
           <Form.Group>
@@ -64,6 +68,7 @@ const AdminLogin = () => {
           
         </fieldset>
       </Form>
+      </div>
       {error ? <div className="text-danger">{error}</div> : null}
     </Container>
   );

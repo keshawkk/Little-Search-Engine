@@ -36,7 +36,9 @@ console.log(data);
 
   return (
     <Container id="form">
-      <div className="title">Login For User</div>
+       <div className="title text-light"><br /><h1><center>User Login</center></h1></div>
+      <br /> 
+      <div class="box">
       <Form onSubmit={onSubmit}>
         <fieldset disabled={isSubmitting}>
           <TextInput
@@ -57,6 +59,7 @@ console.log(data);
           
         </fieldset>
       </Form>
+      </div>
       {error ? <div className="text-danger">{error}</div> : null}
     </Container>
   );
