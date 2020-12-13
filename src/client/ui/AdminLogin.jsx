@@ -26,6 +26,7 @@ const AdminLogin = () => {
     
     axios.post('/api/admin/login', data)
       .then(() => {
+        console.log("login from admin");
         dispatch(getSession());
         history.replace("/admin");
       })
