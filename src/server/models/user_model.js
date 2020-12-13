@@ -20,8 +20,12 @@ const userSchema = new mongoose.Schema({
     required: true
   },
 
+  userType: {
+    type: String
+  },
+
   timesLoggedIn:{
-    type: Number
+    type: Number,
   }
 });
 

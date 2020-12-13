@@ -26,6 +26,10 @@ const adminSchema = new mongoose.Schema({
 
   isLoggedIn: {
     type: Boolean
+  },
+
+  userType: {
+    type: String
   }
 });
 

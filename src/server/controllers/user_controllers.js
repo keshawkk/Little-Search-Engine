@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user_model');
 const jwt = require('./jwt.js');
+const j = require('jsonwebtoken');
 
 module.exports = {
   /**
@@ -13,9 +14,6 @@ module.exports = {
       const  email  = req.body.email;
       const  password  = req.body.password;
       
-      console.log(email);
-      console.log(password);
-      
       const user = await User.findOne({ email });
       if (!user) throw Error('user Does not exist!!');
 
@@ -23,19 +21,53 @@ module.exports = {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) throw Error('Invalid credentials');
 
-      // Creating a Token and making a session
-      const token = jwt.generateToken(
-        {
-          identifier: user.identifier,
-          name: user.name,
-        },
-        '48h'
-      );
-      console.log(token);
-      if (!token) throw Error('Couldnt sign the token');
 
-      req.session.token = token;
-      //user.timesLoggedIn += 1;
+
+    // Todo: un- Comment ones app is ready
+    //   console.log(user.timesLoggedIn);
+    //   const currentTimesLoggedIn = user.timesLoggedIn + 1;
+
+    //   var token;
+    //   if(user.timesLoggedIn < 2)
+    //   {
+    //     token = jwt.generateToken(
+    //       {
+    //         email: user.email,
+    //         userType: user.userType,
+    //         timesLoggedIn: currentTimesLoggedIn
+    //       },
+    //       '48h'
+    //     );
+    //   }else{
+    //     throw Error('Login Limit reached');
+    //   }
+
+      
+
+    //   if (!token) throw Error('Couldnt sign the token');
+    //   req.session.token = token;
+
+    //   User.findOneAndUpdate({_id: user._id}, {$set: {timesLoggedIn: currentTimesLoggedIn}}, {new: true}, (err, doc) => {
+    //     if (err) {
+    //         console.log("Something wrong when updating data!");
+    //     }
+    //     console.log(doc);
+    // });
+
+
+    const token = jwt.generateToken(
+            {
+              email: user.email,
+              userType: user.userType,
+             // timesLoggedIn: currentTimesLoggedIn
+            },
+            '48h'
+          );
+
+          if (!token) throw Error('Couldnt sign the token');
+          req.session.token = token;
+
+
       res.status(200).json({
         status: 'OK',
         token,
@@ -69,6 +101,8 @@ module.exports = {
       const newUser = new User();
       newUser.name = 'User1';
       newUser.email = 'dummyuser@gmail.com';
+      newUser.userType = 'user';
+      newUser.timesLoggedIn = 0;
       newUser.password = hash;
 
       const savedUser = await newUser.save();
