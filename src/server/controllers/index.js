@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { getSession, removeSession } = require('./jwt');
 
 //* All routes applied for /api
+router.use('/file', require('../routes/file_routes.js'));
 router.use('/admin', require('../routes/admin_routes.js'));
 router.use('/user', require('../routes/user_routes.js'));
 

@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const Admin = require('../models/admin_model');
-const A = require('../models/a_model');
 const jwt = require('./jwt.js');
 const j = require('jsonwebtoken');
 
@@ -13,6 +12,7 @@ module.exports = {
    */
   loginAdmin: async (req, res) => {
     try {
+      console.log("Form Admin API" + req.body);
       const  email  = req.body.email;
       const  password  = req.body.password;
 
