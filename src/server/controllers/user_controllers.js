@@ -54,16 +54,6 @@ module.exports = {
         console.log(doc);
     });
 
-
-    // const token = jwt.generateToken(
-    //         {
-    //           email: user.email,
-    //           userType: user.userType,
-    //          // timesLoggedIn: currentTimesLoggedIn
-    //         },
-    //         '48h'
-    //       );
-
           if (!token) throw Error('Couldnt sign the token');
           req.session.token = token;
 

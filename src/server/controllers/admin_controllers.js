@@ -58,7 +58,6 @@ module.exports = {
         // Creating a Token and making a session
         token = jwt.generateToken(
           {
-            name: admin.name,
             email: admin.email,
             userType: admin.userType
           },
@@ -66,13 +65,13 @@ module.exports = {
         );
       }
 
-      token = jwt.generateToken(
-        {
-          name: admin.name,
-          email: admin.email
-        },
-        '48h'
-      );
+      // token = jwt.generateToken(
+      //   {
+      //     name: admin.name,
+      //     userType: admin.userType
+      //   },
+      //   '48h'
+      // );
 
       admin.activeJWT = token;     
       if (!token) throw Error('Couldnt sign the token');
@@ -85,8 +84,6 @@ module.exports = {
         }
         console.log(doc);
     });
-      
-      //console.log("2"+admin);
       
       res.status(200).json({
         data: admin,
