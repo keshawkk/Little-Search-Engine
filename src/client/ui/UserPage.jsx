@@ -22,7 +22,7 @@ const logoutClick = (e) => {
   };
 
   return (
-    <div class="bodybg">
+    <div className="bodybg">
     <Container>
      <Row>
      <Col xs md lg={8}></Col>

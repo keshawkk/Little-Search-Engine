@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const Admin = require('../models/admin_model');
 const jwt = require('./jwt.js');
 const j = require('jsonwebtoken');
-
+const validateLoginInput = require("./validation");
 
 module.exports = {
   /**
@@ -12,6 +12,16 @@ module.exports = {
    */
   loginAdmin: async (req, res) => {
     try {
+
+      const {errors, isValid} = validateLoginInput(req.body);
+
+      if (!isValid) {
+        if(errors.email)
+          throw Error (errors.email);
+        if(errors.password)
+          throw Error (errors.password);
+    }
+
       console.log("Form Admin API" + req.body);
       const  email  = req.body.email;
       const  password  = req.body.password;
@@ -26,35 +36,35 @@ module.exports = {
 
 
       //Todo: Un-comment ones app is ready
-      // if(admin.activeJWT)
-      // {
-      //   //verify the jwt 
-      // j.verify(admin.activeJWT,
-      //   process.env.JWT_SECRET,
-      //   { algorithm: 'HS256' },(err, decoded) => {
-      //     if(err){
-      //       // Creating a Token and making a session
-      //       token = jwt.generateToken(
-      //       {
-      //         email: admin.email,
-      //         userType: admin.userType
-      //       },
-      //       '48h'
-      //     );
-      //   }else
-      //     throw Error("Already logged in")
-      //   })  
-      // }else{
-      //   // Creating a Token and making a session
-      //   token = jwt.generateToken(
-      //     {
-      //       name: admin.name,
-      //       email: admin.email,
-      //       userType: admin.userType
-      //     },
-      //     '48h'
-      //   );
-      // }
+      if(admin.activeJWT)
+      {
+        //verify the jwt 
+      j.verify(admin.activeJWT,
+        process.env.JWT_SECRET,
+        { algorithm: 'HS256' },(err, decoded) => {
+          if(err){
+            // Creating a Token and making a session
+            token = jwt.generateToken(
+            {
+              email: admin.email,
+              userType: admin.userType
+            },
+            '48h'
+          );
+        }else
+          throw Error("Already logged in")
+        })  
+      }else{
+        // Creating a Token and making a session
+        token = jwt.generateToken(
+          {
+            name: admin.name,
+            email: admin.email,
+            userType: admin.userType
+          },
+          '48h'
+        );
+      }
 
       token = jwt.generateToken(
         {

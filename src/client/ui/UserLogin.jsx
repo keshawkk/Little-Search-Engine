@@ -38,7 +38,7 @@ console.log(data);
     <Container id="form">
        <div className="title text-light"><br /><h1><center>User Login</center></h1></div>
       <br /> 
-      <div class="box">
+      <div className="box">
       <Form onSubmit={onSubmit}>
         <fieldset disabled={isSubmitting}>
           <TextInput

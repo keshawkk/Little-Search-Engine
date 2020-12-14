@@ -24,45 +24,45 @@ module.exports = {
 
 
     // Todo: un- Comment ones app is ready
-    //   console.log(user.timesLoggedIn);
-    //   const currentTimesLoggedIn = user.timesLoggedIn + 1;
+      console.log(user.timesLoggedIn);
+      const currentTimesLoggedIn = user.timesLoggedIn + 1;
 
-    //   var token;
-    //   if(user.timesLoggedIn < 2)
-    //   {
-    //     token = jwt.generateToken(
-    //       {
-    //         email: user.email,
-    //         userType: user.userType,
-    //         timesLoggedIn: currentTimesLoggedIn
-    //       },
-    //       '48h'
-    //     );
-    //   }else{
-    //     throw Error('Login Limit reached');
-    //   }
+      var token;
+      if(user.timesLoggedIn < 2)
+      {
+        token = jwt.generateToken(
+          {
+            email: user.email,
+            userType: user.userType,
+            timesLoggedIn: currentTimesLoggedIn
+          },
+          '48h'
+        );
+      }else{
+        throw Error('Login Limit reached');
+      }
 
       
 
-    //   if (!token) throw Error('Couldnt sign the token');
-    //   req.session.token = token;
+      if (!token) throw Error('Couldnt sign the token');
+      req.session.token = token;
 
-    //   User.findOneAndUpdate({_id: user._id}, {$set: {timesLoggedIn: currentTimesLoggedIn}}, {new: true}, (err, doc) => {
-    //     if (err) {
-    //         console.log("Something wrong when updating data!");
-    //     }
-    //     console.log(doc);
-    // });
+      User.findOneAndUpdate({_id: user._id}, {$set: {timesLoggedIn: currentTimesLoggedIn}}, {new: true}, (err, doc) => {
+        if (err) {
+            console.log("Something wrong when updating data!");
+        }
+        console.log(doc);
+    });
 
 
-    const token = jwt.generateToken(
-            {
-              email: user.email,
-              userType: user.userType,
-             // timesLoggedIn: currentTimesLoggedIn
-            },
-            '48h'
-          );
+    // const token = jwt.generateToken(
+    //         {
+    //           email: user.email,
+    //           userType: user.userType,
+    //          // timesLoggedIn: currentTimesLoggedIn
+    //         },
+    //         '48h'
+    //       );
 
           if (!token) throw Error('Couldnt sign the token');
           req.session.token = token;
