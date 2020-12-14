@@ -6,6 +6,7 @@ import {
   Row, 
   Col, 
   InputGroup,
+  Form,
   FormControl } from 'react-bootstrap';
 import axios from 'axios';
 import ReactFileReader from 'react-file-reader';
@@ -19,6 +20,8 @@ const dispatch = useDispatch();
 const history = useHistory();
 const [error, setError] = useState(null);
 
+
+//Function to handle logout
 const logoutClick = (e) => {
 
     e.preventDefault();
@@ -29,6 +32,8 @@ const logoutClick = (e) => {
     });
   };
 
+
+//Function to handle file upload
  const handleFiles = files => {
     var reader = new FileReader();
     reader.onload = function(e) {
@@ -38,20 +43,39 @@ const logoutClick = (e) => {
           fileData : reader.result,
         }
         //reader.result;
-        console.log("File data of length: "+data);
 
-        axios.post('/api/upload', data)
+        axios.post('/api/file/upload', data)
         .then(() => {
           //
-          console.log("done : " + data);
         })
         .catch((err) => { 
           setError(err.response.data.message);
         })
     }
-  // console.log("next: " + reader.readAsText(files[0]))
     reader.readAsText(files[0]);
 }
+
+//Function to handle search query
+const searchHandler = (e) => {
+  e.preventDefault();
+
+  console.log("seacr called");
+  let data = {
+    searchTxt : e.target.searchTxt.value
+  }
+
+  console.log("from call : " + data);
+
+  axios.post('/api/file/view', data)
+  .then(()=>{
+
+  })
+  .catch((err) => {
+    setError(err.response.data.message);    
+  })
+
+}
+
 
   return (
     <div className="bodybg">
@@ -82,14 +106,23 @@ const logoutClick = (e) => {
        <Col lg={5}>
         <h4><center>Type below!</center></h4>
         <br/>
+
+
+
+        <Form onSubmit={searchHandler}>
         <InputGroup className="mb-3">
           <FormControl
-            placeholder="Type here"
+            type="text"
+            name="searchTxt"
+            placeholder="Search"
           />
           <InputGroup.Append>
            <Button variant="primary">Search</Button>
           </InputGroup.Append>
         </InputGroup>
+        </Form>
+
+
         </Col>
       </Row>
     </Container>
